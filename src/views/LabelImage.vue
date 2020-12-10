@@ -39,7 +39,8 @@
 										class="cursor">
 										Upload images
 									</b-btn>
-								</b-col>						
+								</b-col>
+								<button @click="distributePageBtn">Distribute Page</button>						
 							</b-row>
 						</b-media>
 					</b-col>
@@ -91,6 +92,11 @@ export default {
 						})
 					}
 				})
+		},
+		distributePageBtn () {
+			this.$router.push({
+				name: 'DistributeData'
+			})
 		},
 		uploadImages () {
 			this.$router.push({

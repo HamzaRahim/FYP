@@ -16,7 +16,8 @@ router.post('/register', function(req, res) {
             lastName: req.body.lastName,
             email: req.body.email,
             username: req.body.username,
-            password: req.body.password
+            password: req.body.password,
+            userType: req.body.userType
         });
         // save the user
         newUser.save(function(err) {
@@ -47,7 +48,10 @@ router.post('/login', function(req, res) {
 						username: user.username,
 						email: user.email,
                         userId: user._id,
+                        userType: user.userType,
                     }
+                    console.log(newUser);
+                    console.log(newUser);
                     // if user is found and password is right create a token
                     var token = jwt.sign(user.toJSON(), settings.secret);
                     // return the information including token as JSON

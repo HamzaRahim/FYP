@@ -25,6 +25,16 @@
 						name="password"
 						class="login-input"
 						placeholder="Password">
+
+					<!-- <div>
+						<b>Select Role</b>
+						<br/>
+						<input type="radio" id="role" value="Annontator" v-model="picked" class="login-input">
+						<label>Annontator</label>
+						<input type="radio" id="role" value="Reviewer" v-model="picked" class="login-input">
+						<label>Reviewer</label>
+					</div> -->
+
 					<b-button type="submit" variant="warning" class="login-button">
 						Login
 					</b-button>
@@ -52,13 +62,18 @@ export default {
 			axios.post(`http://localhost:3000/api/auth/login/`, this.login)
 				.then(response => {
 					let user = response.data.user
+					// let rol = this.picked
 					user.loggedIn = response.data.success
 					this.$store.state.user = user
+					// localStorage.setItem('Userrole', rol)
 					localStorage.setItem('newUser', JSON.stringify(user))
 					localStorage.setItem('jwtToken', response.data.token)
-					this.$router.push({
-						name: 'ImageList'
-					})
+					localStorage.setItem('role', JSON.stringify(user.userType))
+					if (user.userType === 'Annotator') {
+						this.$router.push({
+							name: 'ImageList'
+						})
+					}
 				})
 				.catch(e => {
 					this.errors.push(e)

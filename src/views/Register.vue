@@ -49,6 +49,18 @@
 						name="password"
 						class="login-input"
 						placeholder="Password">
+					<input
+						v-model.trim="register.userType"
+						type="text"
+						name="userType"
+						class="login-input"
+						placeholder="UserType">
+					<!-- <div>
+						<b>Select User Role</b>
+						<br/>
+						<input v-model="userType" name="userType" type="radio" id="role" value="Annontator" class="login-input">Annontator
+						<input v-model="userType" name="userType" type="radio" id="role" value="Reviewer" class="login-input">Reviewer
+					</div> -->
 					<b-button type="submit" variant="warning" class="login-button">
 						Register
 					</b-button>
@@ -73,14 +85,17 @@ export default {
 	data () {
 		return {
 			register: {},
-			errors: []
+			errors: [],
+			userType: ''
 		}
 	},
 	methods: {
 		onSubmit (evt) {
+			// let rol = this.register.userType
 			evt.preventDefault()
 			axios.post(`http://localhost:3000/api/auth/register/`, this.register)
 				.then(response => {
+					// console.log(rol)
 					this.$router.push({
 						name: 'Login'
 					})

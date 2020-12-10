@@ -66,9 +66,10 @@ export default {
 		}
 	},
 	created () {
-		axios.defaults.headers.common['Authorization'] = localStorage.getItem(
-			'jwtToken'
-		)
+		console.log(axios.defaults.headers.common['Authorization'] = localStorage.getItem(
+			'jwtToken',
+		))
+		console.log(localStorage.getItem('Userrole'))
 		this.getImages()
 	},
 	methods: {
@@ -91,9 +92,13 @@ export default {
 				})
 		},
 		btnNext () {
-			this.$router.push({
-				name: 'LabelImage'
-			})
+			if (localStorage.getItem('Userrole') === 'Annontator') {
+				this.$router.push({
+					name: 'LabelImage'
+				})
+			} else {
+				console.log(localStorage.getItem('Userrole'))
+			}
 		},
 		clickeMethod () {
 			this.$router.push({
